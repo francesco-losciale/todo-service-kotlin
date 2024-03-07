@@ -1,0 +1,12 @@
+ktor:
+  application:
+    modules:
+      - com.todo.ApplicationKt.module
+  deployment:
+    port: 8080
+
+database:
+  url: "jdbc:postgresql://localhost:5432/postgres"
+  driver: "org.postgresql.Driver"
+  user: "postgres"
+  password: "password"

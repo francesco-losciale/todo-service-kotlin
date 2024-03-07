@@ -1,0 +1,12 @@
+ktor:
+  application:
+    modules:
+      - com.todo.ApplicationKt.module
+  deployment:
+    port: 8080
+
+database:
+  url: "jdbc:h2:mem:test;DB_CLOSE_DELAY=-1"
+  driver: "org.h2.Driver"
+  user: "root"
+  password: ""
