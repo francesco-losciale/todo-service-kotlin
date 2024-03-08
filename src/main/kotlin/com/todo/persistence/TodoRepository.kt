@@ -1,16 +1,15 @@
 package com.todo.persistence
 
 import com.todo.models.Todo
-import com.todo.models.TodoRepository
 import kotlinx.coroutines.Dispatchers
 import org.jetbrains.exposed.sql.ResultRow
 import org.jetbrains.exposed.sql.insert
 import org.jetbrains.exposed.sql.select
 import org.jetbrains.exposed.sql.transactions.experimental.newSuspendedTransaction
 
-class TodoRepositoryImpl : TodoRepository {
+class TodoRepository {
 
-    override suspend fun add(todo: Todo): Todo? {
+    suspend fun add(todo: Todo): Todo? {
         return newSuspendedTransaction(Dispatchers.IO) {
             return@newSuspendedTransaction Todos.insert {
                 it[title] = todo.title
@@ -19,7 +18,7 @@ class TodoRepositoryImpl : TodoRepository {
         }
     }
 
-    override suspend fun get(id: Long): Todo? {
+    suspend fun get(id: Long): Todo? {
         return newSuspendedTransaction(Dispatchers.IO) {
             return@newSuspendedTransaction Todos.select { Todos.id eq id}
                 .map(::resultRowToTodo)
@@ -34,4 +33,4 @@ class TodoRepositoryImpl : TodoRepository {
     )
 }
 
-val todoRepository: TodoRepository = TodoRepositoryImpl()
+val todoRepository = TodoRepository()

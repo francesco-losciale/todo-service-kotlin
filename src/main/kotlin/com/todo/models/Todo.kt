@@ -13,8 +13,3 @@ data class TodoList(
     val id: Long,
     val todos: List<Todo>)
 
-interface TodoRepository {
-    suspend fun add(todo: Todo): Todo?
-    suspend fun get(id: Long): Todo?
-}
-

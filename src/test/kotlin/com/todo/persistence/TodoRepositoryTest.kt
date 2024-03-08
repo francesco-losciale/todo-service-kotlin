@@ -5,7 +5,7 @@ import com.todo.shared.testApplicationWithEmptyDatabase
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 
-class TodoRepositoryImplTest {
+class TodoRepositoryTest {
 
     @Test
     fun canCreateAndReadNewTodo(): Unit = testApplicationWithEmptyDatabase {
