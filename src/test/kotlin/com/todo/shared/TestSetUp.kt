@@ -1,24 +1,18 @@
 package com.todo.shared
 
 import com.todo.persistence.Todos
+import com.todo.plugins.createDatabase
 import io.ktor.client.*
 import io.ktor.client.plugins.contentnegotiation.*
 import io.ktor.serialization.kotlinx.json.*
 import io.ktor.server.testing.*
-import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.SchemaUtils
 import org.jetbrains.exposed.sql.transactions.transaction
 
 fun testApplicationWithEmptyDatabase(block: suspend ApplicationTestBuilder.() -> Unit) {
     testApplication {
         application {
-            val database = Database.connect(
-                url = environment.config.propertyOrNull("database.url")!!.getString(),
-                driver = environment.config.propertyOrNull("database.driver")!!.getString(),
-                user = environment.config.propertyOrNull("database.user")!!.getString(),
-                password = environment.config.propertyOrNull("database.password")!!.getString()
-            )
-            transaction(database) {
+            transaction(createDatabase()) {
                 SchemaUtils.drop(Todos)
                 SchemaUtils.create(Todos)
             }

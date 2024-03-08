@@ -6,7 +6,7 @@ import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.SchemaUtils
 import org.jetbrains.exposed.sql.transactions.transaction
 
-fun Application.configureDatabases() {
+fun Application.createDatabase(): Database {
     val database = Database.connect(
         url = environment.config.propertyOrNull("database.url")!!.getString(),
         driver = environment.config.propertyOrNull("database.driver")!!.getString(),
@@ -16,4 +16,5 @@ fun Application.configureDatabases() {
     transaction(database) {
         SchemaUtils.create(Todos)
     }
+    return database
 }
