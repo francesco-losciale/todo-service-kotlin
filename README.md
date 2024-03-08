@@ -1,8 +1,3 @@
-# TODO
-
-- Integration test can read just the application.conf, fix it to ready the application.yaml instead
-- 
-
 # How to run
 
 `docker-compose up -d`
